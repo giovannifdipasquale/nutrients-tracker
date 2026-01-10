@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@layer base {
+    :root {
+        /* --- COLOR PALETTE BACKBONE --- */
+        /* Active Color */
+        --color-lavender: #D8D8F6;
+
+        /* Future Slots (Commented) */
+        /* --color-primary: #xxxxxx; */
+        /* --color-secondary: #xxxxxx; */
+        /* --color-success: #xxxxxx; */
+        /* --color-warning: #xxxxxx; */
+        /* --color-danger: #xxxxxx; */
+        /* --color-info: #xxxxxx; */
+
+        /* App Surface Defaults */
+        --bg-app: #ffffff;
+        --text-app: #1a1a1a;
+    }
+}
+
+@layer utilities {
+    /* --- CUSTOM UTILITY CLASSES (Bootstrap Style) --- */
+
+    /* Lavender implementation */
+    .bg-lavender {
+        background-color: var(--color-lavender);
+    }
+
+    .text-lavender {
+        color: var(--color-lavender);
+    }
+
+    .border-lavender {
+        border-color: var(--color-lavender);
+    }
+
+    /* Future Backbone Stubs (Commented) */
+    /* .bg-primary { background-color: var(--color-primary); }
+  .text-primary { color: var(--color-primary); }
+
+  .bg-success { background-color: var(--color-success); }
+  .text-success { color: var(--color-success); }
+
+  .bg-danger { background-color: var(--color-danger); }
+  .text-danger { color: var(--color-danger); }
+
+  .bg-warning { background-color: var(--color-warning); }
+  .text-warning { color: var(--color-warning); }
+  */
+}
