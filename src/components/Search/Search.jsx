@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FoodCard from '@/components/FoodCard/FoodCard';
 import { useFood } from '@/context/FoodContext';
+import Spinner from '../Spinner/Spinner';
 
 const Search = () => {
     // --- STATE ---
@@ -13,7 +14,11 @@ const Search = () => {
     // --- HANDLERS ---
     const handleSearch = async () => {
         setLoading(true);
-        await getFoods(searchString);
+        if (searchString === '') {
+            await getFoods('Apple');
+        } else {
+            await getFoods(searchString);
+        }
         setLoading(false);
     }
 
@@ -25,17 +30,18 @@ const Search = () => {
 
     // --- EFFECT (Initial Load) ---
     useEffect(() => {
-        getFoods('Apple');
+        handleSearch();
     }, []);
-
     // --- RENDER ---
     return (
-        <div className="w-full max-w-md mx-auto p-4">
+        <div className="w-full max-w-2xl">
 
             {/* Results Section - Added padding bottom to prevent content from being hidden behind fixed search */}
             <div className="space-y-4 pb-20">
                 {loading ? (
-                    <p className="text-center text-gray-500 text-sm">Loading...</p>
+                    <div className="flex justify-center items-center h-64 transform scale-125">
+                        <Spinner />
+                    </div>
                 ) : (
                     // Pass the clean, normalized food object to the Card component
                     foods.map((food) => (
@@ -45,17 +51,21 @@ const Search = () => {
             </div>
 
             {/* Search Input Section - Fixed at Bottom */}
-            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-40">
+            <div
+                className="fixed bottom-0 left-0 right-0 bg-white-alt border-t border-coffee-bean p-4 shadow-lg z-40 transition-colors"
+                style={{ borderTopColor: "rgba(33, 15, 4, 0.15)" }}
+            >
                 <div className="max-w-md mx-auto relative">
                     <input
-                        className="w-full bg-gray-50 text-slate-700 text-sm border border-slate-300 rounded-lg pl-4 pr-24 py-3 shadow-inner focus:outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
+                        className="w-full bg-white text-coffee-bean text-sm border border-coffee-bean rounded-lg pl-4 pr-24 py-3 shadow-inner focus:outline-none focus:border-vibrant-coral focus:ring-1 focus:ring-vibrant-coral transition-colors"
+                        style={{ borderColor: "rgba(33, 15, 4, 0.2)" }}
                         placeholder="Search food (e.g., Apple, Pasta)..."
                         value={searchString}
                         onChange={(e) => setSearchString(e.target.value)}
                         onKeyDown={handleKeyDown}
                     />
                     <button
-                        className="absolute top-1.5 right-1.5 bg-slate-800 text-white text-xs px-4 py-2 rounded-md hover:bg-slate-700 transition shadow-sm font-medium"
+                        className="absolute top-1.5 right-1.5 bg-coffee-bean text-white-alt text-xs px-4 py-2 rounded-md hover:opacity-90 transition shadow-sm font-medium active:scale-[0.98]"
                         onClick={handleSearch}
                     >
                         Search
@@ -63,6 +73,7 @@ const Search = () => {
                 </div>
             </div>
         </div>
+
     );
 };
 

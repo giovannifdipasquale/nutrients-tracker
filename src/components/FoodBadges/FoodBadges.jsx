@@ -16,7 +16,7 @@ const FoodBadges = () => {
                         <button
                             type="button"
                             className="flex-shrink-0 ml-1.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-emerald-600 hover:bg-emerald-200 hover:text-emerald-500 focus:outline-none focus:bg-emerald-500 focus:text-white"
-                            onClick={() => removeFood(index)}
+                            onClick={() => removeFood(food.id)}
                         >
                             <span className="sr-only">Remove {food.name}</span>
                             <svg className="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">

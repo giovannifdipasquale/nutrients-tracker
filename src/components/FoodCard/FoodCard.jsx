@@ -3,31 +3,40 @@ import Button from '@/components/Button/Button';
 const FoodCard = ({ food }) => {
     const nutrients = food.nutrients;
     return (
-        <div className="bg-white rounded-lg shadow-xl overflow-hidden mb-4">
-            <div className="flex bg-violet-100 px-4 py-3 font-semibold text-slate-800 flex justify-between items-center">
+        <div className="bg-white-alt rounded-lg shadow-xl overflow-hidden mb-4 border border-coffee-bean" style={{ borderColor: "rgba(33, 15, 4, 0.1)" }}>
+            <div
+                className="flex px-4 py-3 font-semibold text-coffee-bean flex justify-between items-center border-b border-coffee-bean"
+                style={{ borderBottomColor: "rgba(33, 15, 4, 0.15)" }}
+            >
                 <div>
                     {food.name}
-                    <span className="text-xs text-gray-400">(100g)</span>
+                    <span className="text-xs mx-3 text-coffee-bean opacity-60">(100g)</span>
                 </div>
                 <div>
                     <Button food={food} />
                 </div>
             </div>
-            <div className="p-4 space-y-4 flex justify-around">
-
+            <div className="p-4 flex flex-wrap gap-4 justify-around">
                 {nutrients && Object.keys(nutrients).map((key) => {
                     return (
-                        <div key={key}>
+                        <div className="flex-1 min-w-[200px]" key={key}>
                             <div className="">
-                                <div className="border border-violet-100 rounded-lg overflow-hidden">
+                                <div
+                                    className="border border-coffee-bean rounded-lg overflow-hidden bg-white shadow-sm"
+                                    style={{ borderColor: "rgba(33, 15, 4, 0.15)" }}
+                                >
                                     <table className="w-full text-sm">
-                                        <tbody>
+                                        <tbody className="w-full">
                                             {Object.keys(nutrients[key]).map((nutrientKey, index, arr) => {
                                                 const isLastRow = index === arr.length - 1;
                                                 return (
-                                                    <tr className={`border-b border-lavender ${isLastRow ? 'border-b-0' : ''}`} key={nutrientKey}>
-                                                        <td style={{ width: '90%' }} className="bg-gray-50 p-2 font-medium text-slate-600">{nutrientKey}</td>
-                                                        <td className="p-2 text-right text-slate-500">{nutrients[key][nutrientKey].value} {nutrients[key][nutrientKey].unit}</td>
+                                                    <tr
+                                                        className={`w-full border-b border-coffee-bean ${isLastRow ? 'border-b-0' : ''}`}
+                                                        style={!isLastRow ? { borderBottomColor: "rgba(33, 15, 4, 0.1)" } : {}}
+                                                        key={nutrientKey}
+                                                    >
+                                                        <td className="p-3 font-medium text-coffee-bean opacity-80">{nutrientKey}</td>
+                                                        <td className="p-3 text-right text-coffee-bean opacity-60">{nutrients[key][nutrientKey].value} {nutrients[key][nutrientKey].unit}</td>
                                                     </tr>
                                                 )
                                             })}
@@ -38,8 +47,6 @@ const FoodCard = ({ food }) => {
                         </div>
                     )
                 })}
-
-
             </div>
         </div>
     );

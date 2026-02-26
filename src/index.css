@@ -2,17 +2,11 @@
 
 @layer base {
     :root {
-        /* --- COLOR PALETTE BACKBONE --- */
-        /* Active Color */
+        /* Palette Backbone */
         --color-lavender: #D8D8F6;
-
-        /* Future Slots (Commented) */
-        /* --color-primary: #xxxxxx; */
-        /* --color-secondary: #xxxxxx; */
-        /* --color-success: #xxxxxx; */
-        /* --color-warning: #xxxxxx; */
-        /* --color-danger: #xxxxxx; */
-        /* --color-info: #xxxxxx; */
+        --color-vibrant-coral: #FF5454;
+        --color-coffee-bean: #210F04;
+        --color-white-alt: #FCFCFC;
 
         /* App Surface Defaults */
         --bg-app: #ffffff;
@@ -21,9 +15,8 @@
 }
 
 @layer utilities {
-    /* --- CUSTOM UTILITY CLASSES (Bootstrap Style) --- */
 
-    /* Lavender implementation */
+    /* Lavender */
     .bg-lavender {
         background-color: var(--color-lavender);
     }
@@ -36,17 +29,95 @@
         border-color: var(--color-lavender);
     }
 
-    /* Future Backbone Stubs (Commented) */
-    /* .bg-primary { background-color: var(--color-primary); }
-  .text-primary { color: var(--color-primary); }
+    /* Vibrant Coral */
+    .bg-vibrant-coral {
+        background-color: var(--color-vibrant-coral);
+    }
 
-  .bg-success { background-color: var(--color-success); }
-  .text-success { color: var(--color-success); }
+    .text-vibrant-coral {
+        color: var(--color-vibrant-coral);
+    }
 
-  .bg-danger { background-color: var(--color-danger); }
-  .text-danger { color: var(--color-danger); }
+    .border-vibrant-coral {
+        border-color: var(--color-vibrant-coral);
+    }
 
-  .bg-warning { background-color: var(--color-warning); }
-  .text-warning { color: var(--color-warning); }
-  */
+    /* Coffee Bean */
+    .bg-coffee-bean {
+        background-color: var(--color-coffee-bean);
+    }
+
+    .text-coffee-bean {
+        color: var(--color-coffee-bean);
+    }
+
+    .border-coffee-bean {
+        border-color: var(--color-coffee-bean);
+    }
+
+    /* White Alt */
+    .bg-white-alt {
+        background-color: var(--color-white-alt);
+    }
+
+    .text-white-alt {
+        color: var(--color-white-alt);
+    }
+
+    .border-white-alt {
+        border-color: var(--color-white-alt);
+    }
+
+    /* HOVER VERSIONS */
+    /* Lavender */
+    .hover-bg-lavender:hover {
+        background-color: var(--color-lavender);
+    }
+
+    .hover-text-lavender:hover {
+        color: var(--color-lavender);
+    }
+
+    .hover-border-lavender:hover {
+        border-color: var(--color-lavender);
+    }
+
+    /* Vibrant Coral */
+    .hover-bg-vibrant-coral:hover {
+        background-color: var(--color-vibrant-coral);
+    }
+
+    .hover-text-vibrant-coral:hover {
+        color: var(--color-vibrant-coral);
+    }
+
+    .hover-border-vibrant-coral:hover {
+        border-color: var(--color-vibrant-coral);
+    }
+
+    /* Coffee Bean */
+    .hover-bg-coffee-bean:hover {
+        background-color: var(--color-coffee-bean);
+    }
+
+    .hover-text-coffee-bean:hover {
+        color: var(--color-coffee-bean);
+    }
+
+    .hover-border-coffee-bean:hover {
+        border-color: var(--color-coffee-bean);
+    }
+
+    /* White Alt */
+    .hover-bg-white-alt:hover {
+        background-color: var(--color-white-alt);
+    }
+
+    .hover-text-white-alt:hover {
+        color: var(--color-white-alt);
+    }
+
+    .hover-border-white-alt:hover {
+        border-color: var(--color-white-alt);
+    }
 }

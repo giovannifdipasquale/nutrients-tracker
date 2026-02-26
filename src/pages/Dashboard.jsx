@@ -5,8 +5,10 @@ import { useFood } from '@/context/FoodContext';
 const Dashboard = () => {
     const { foodList } = useFood();
     const [totals, setTotals] = useState({});
+    // generating totals of nutrients
     const generateTotalNutrients = (foodList) => {
         const objTotals = {};
+        // summing all the nutrients
         foodList.forEach((food) => {
             Object.keys(food.nutrients).forEach((categoryKey) => {
                 if (!objTotals[categoryKey]) {
