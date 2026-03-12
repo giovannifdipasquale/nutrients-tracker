@@ -5,6 +5,8 @@ import { Routes, Route, Link } from 'react-router';
 import './App.css'
 import Search from './components/Search/Search.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import SignUp from './pages/SignUp/SignUp.jsx'
+import Login from './pages/Login/Login.jsx'
 import ResetButton from './components/ResetButton/ResetButton.jsx'
 import PortionModal from './components/PortionModal/PortionModal.jsx'
 import Summary from './components/Summary/Summary.jsx'
@@ -18,6 +20,8 @@ function App() {
           <Summary />
           <Link to="/" className="text-slate-600 hover:text-slate-900 px-3 py-2 font-medium">Home</Link>
           <Link to="/dashboard" className="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-700 transition">Dashboard</Link>
+          <Link to="/signup" className="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-700 transition">Sign Up</Link>
+          <Link to="/login" className="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-700 transition">Login</Link>
           <ResetButton />
         </div>
         <PortionModal />
@@ -29,6 +33,8 @@ function App() {
           </div>
         } />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
