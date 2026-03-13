@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { normalizeFood } from '@/utils/foodMapper';
+import { supabase } from '@/services/supabaseClient';
 
 const FoodContext = createContext();
 
@@ -7,19 +8,41 @@ export const useFood = () => useContext(FoodContext);
 
 export const FoodProvider = ({ children }) => {
     // Initial state reads from storage once
-    const [foodList, setFoodList] = useState(() => {
-        const stored = localStorage.getItem('myFoodList');
-        return stored ? JSON.parse(stored) : [];
-    });
+    const [foodList, setFoodList] = useState([]);
     const [foods, setFoods] = useState([]);
     const [currentFood, setCurrentFood] = useState(null);
 
-    // USE-EFFECT: Auto-save to storage whenever foodList changes
-    useEffect(() => {
-        localStorage.setItem('myFoodList', JSON.stringify(foodList));
-        console.log(foodList);
-    }, [foodList]);
+    // // USE-EFFECT: Auto-save to storage whenever foodList changes
+    // useEffect(() => {
+    //     localStorage.setItem('myFoodList', JSON.stringify(foodList));
+    //     console.log(foodList);
+    // }, [foodList]);
+    // Function to load data from DB
+    const fetchFoodList = async () => {
+        const { data, error } = await supabase
+            .from('my_food_list')
+            .select('*')
+            .order('created_at', { ascending: false }); // The most recent first
 
+        if (error) {
+            console.error("Error loading:", error);
+        } else {
+            // Map the data to return it to the format that your frontend expects
+            const formattedData = data.map(item => ({
+                db_id: item.db_id, // The new ID of Supabase
+                id: item.usda_id,   // The original USDA ID
+                name: item.name,
+                grams: item.grams,
+                nutrients: item.raw_data   // Spread the nutrients saved in JSONB
+            }));
+            setFoodList(formattedData);
+        }
+    };
+
+    // When mounted -> fetch food list from db
+    useEffect(() => {
+        fetchFoodList();
+    }, []);
     const getFoods = async (query = '') => {
         const API_KEY = import.meta.env.VITE_USDA_API_KEY;
 
@@ -70,7 +93,7 @@ export const FoodProvider = ({ children }) => {
     }
 
     // ADD (+CHOOSE AMOUNT) / REMOVE / RESET
-    const addFood = (foodToAdd, grams = 100) => {
+    const addFood = async (foodToAdd, grams = 100) => {
         // stdzing foodToAdd structure 
         // const foodToAdd = {
         //     id: food.id,
@@ -78,11 +101,35 @@ export const FoodProvider = ({ children }) => {
         //     nutrients: {...}
         //     portions: [...]
         // }
-        const foodToAddPlusGrams = {
-            ...foodToAdd,
-            grams: grams
+        // preparing food structure for database
+        const newFoodRow = {
+            usda_id: foodToAdd.id.toString(),
+            name: foodToAdd.name,
+            grams: grams,
+            raw_data: foodToAdd.nutrients
+        };
+        const { data, error } = await supabase
+            .from('my_food_list')
+            .insert([newFoodRow])
+            .select()
+            .single();
+
+        // Error handling
+        if (error) {
+            console.error("Error saving food to DB:", error.message);
+            return;
         }
-        setFoodList(prev => [...prev, foodToAddPlusGrams]);
+        console.log("Food saved in Supabase! Here is the generated row:", data);
+        const newlyAddedFood = {
+            db_id: data.db_id,
+            id: data.usda_id,
+            name: data.name,
+            grams: data.grams,
+            nutrients: data.raw_data
+        };
+        setFoodList(prev => [newlyAddedFood, ...prev]);
+        console.log(foodList);
+
         setCurrentFood(null);
     };
     const chooseAmount = async (food) => {
@@ -91,13 +138,33 @@ export const FoodProvider = ({ children }) => {
         setCurrentFood(foodById);
     };
 
-    const removeFood = (indexToRemove) => {
-        setFoodList(prev => prev.filter((food) => food.id !== indexToRemove));
+    const removeFood = async (db_idToRemove) => {
+        const { error } = await supabase
+            .from('my_food_list')
+            .delete()
+            .eq('db_id', db_idToRemove);
+
+        if (error) {
+            console.error("Error deleting food from DB:", error.message);
+            return;
+        }
+        setFoodList(prev => prev.filter((food) => food.db_id !== db_idToRemove));
     };
 
-    const resetFoodList = () => {
+    const resetFoodList = async () => {
+        // remove ever row from table
+        const { error } = await supabase
+        .from("my_food_list")
+        .delete()
+        .neq("usda_id", 0);
+
+        if (error) {
+        console.error("Error deleting food from DB:", error.message);
+        return;
+        }
+        // empty food list
         setFoodList([]);
-        localStorage.removeItem('myFoodList');
+        localStorage.removeItem("myFoodList");
     };
 
 

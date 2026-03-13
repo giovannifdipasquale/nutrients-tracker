@@ -51,7 +51,7 @@ function Summary() {
                                 <div key={index} className="flex justify-between border-b border-gray-200">
                                     <div className='p-2'>{food.name}</div>
                                     <div className='p-2'>
-                                        <button className='border border-vibrant-coral text-vibrant-coral hover-bg-vibrant-coral hover-text-white-alt font-medium px-2 rounded-md' onClick={() => removeFood(food.id)}>Remove</button>
+                                        <button className='border border-vibrant-coral text-vibrant-coral hover-bg-vibrant-coral hover-text-white-alt font-medium px-2 rounded-md' onClick={() => removeFood(food.db_id)}>Remove</button>
                                     </div>
 
                                 </div>
