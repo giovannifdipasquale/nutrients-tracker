@@ -18,19 +18,34 @@ const Navbar = () => {
                 <div className="flex gap-4 items-center">
                     {user ? (
                         <>
-                            <Link to="/dashboard" className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 transition">Dashboard</Link>
-                            <button onClick={signOut} className="border border-slate-300 text-slate-700 px-4 py-2 rounded hover:bg-slate-100 transition">Sign Out</button>
+                            <Link to="/dashboard" className="bg-emerald-600 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-emerald-700 transition">
+                                <i className="bi bi-microsoft"></i>
+                                <span>Dashboard</span>
+                            </Link>
+                            <button onClick={signOut} className="border border-slate-300 text-slate-700 px-4 py-2 rounded flex items-center gap-2 hover:bg-slate-100 transition">
+                                <i className="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </button>
                         </>
                     ) : (
                         <>
-                            <Link to="/login" className="text-slate-600 hover:text-slate-900 px-4 py-2 font-medium transition">Login</Link>
-                            <Link to="/signup" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Sign Up</Link>
+                            <Link to="/login" className="text-slate-600 hover:text-slate-900 px-4 py-2 font-medium flex items-center gap-2 transition">
+                                <i className="bi bi-box-arrow-in-right"></i>
+                                <span>Login</span>
+                            </Link>
+                            <Link to="/signup" className="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-blue-700 transition">
+                                <i className="bi bi-person-plus"></i>
+                                <span>Sign Up</span>
+                            </Link>
                         </>
                     )}
                 </div>
                 <div className="flex gap-4 items-center">
                     <Summary />
-                    <Link to="/" className="text-slate-600 hover:text-slate-900 px-3 py-2 font-medium">Home</Link>
+                    <Link to="/" className="text-slate-600 hover:text-slate-900 px-3 py-2 font-medium flex items-center gap-2">
+                        <i className="bi bi-house"></i>
+                        <span>Home</span>
+                    </Link>
                     <ResetButton />
                 </div>
             </div>

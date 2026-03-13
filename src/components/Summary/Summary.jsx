@@ -24,11 +24,12 @@ function Summary() {
         <div>
             <button
                 onClick={() => setIsOpen(true)}
-                className={`relative text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 ${numberOfFood === 0 ? 'opacity-50' : ''}`}
+                className={`flex items-center gap-2 relative text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 ${numberOfFood === 0 ? 'opacity-50' : ''}`}
                 type="button"
                 disabled={numberOfFood === 0}
             >
-                My Foods
+                <i className="bi bi-basket"></i>
+                <span>My Foods</span>
                 <span className="absolute -top-2 -right-2 flex items-center justify-center bg-vibrant-coral text-coffee-bean text-xs font-medium h-5 w-5 rounded-full">
                     {numberOfFood}
                 </span>
