@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { normalizeFood } from '@/utils/foodMapper';
 import { supabase } from '@/services/supabaseClient';
-
+import { useAuth } from './AuthProvider';
 const FoodContext = createContext();
 
 export const useFood = () => useContext(FoodContext);
@@ -11,7 +11,7 @@ export const FoodProvider = ({ children }) => {
     const [foodList, setFoodList] = useState([]);
     const [foods, setFoods] = useState([]);
     const [currentFood, setCurrentFood] = useState(null);
-
+    const { user } = useAuth();
     // // USE-EFFECT: Auto-save to storage whenever foodList changes
     // useEffect(() => {
     //     localStorage.setItem('myFoodList', JSON.stringify(foodList));
@@ -42,7 +42,8 @@ export const FoodProvider = ({ children }) => {
     // When mounted -> fetch food list from db
     useEffect(() => {
         fetchFoodList();
-    }, []);
+    }, [user]);
+    
     const getFoods = async (query = '') => {
         const API_KEY = import.meta.env.VITE_USDA_API_KEY;
 
@@ -154,13 +155,13 @@ export const FoodProvider = ({ children }) => {
     const resetFoodList = async () => {
         // remove ever row from table
         const { error } = await supabase
-        .from("my_food_list")
-        .delete()
-        .neq("usda_id", 0);
+            .from("my_food_list")
+            .delete()
+            .neq("usda_id", 0);
 
         if (error) {
-        console.error("Error deleting food from DB:", error.message);
-        return;
+            console.error("Error deleting food from DB:", error.message);
+            return;
         }
         // empty food list
         setFoodList([]);

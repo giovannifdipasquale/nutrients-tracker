@@ -8,14 +8,12 @@ import Dashboard from './pages/Dashboard.jsx'
 import SignUp from './pages/SignUp/SignUp.jsx'
 import Login from './pages/Login/Login.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
-import { AuthProvider } from '@/context/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   // const [count, setCount] = useState(0);
 
   return (
-    <AuthProvider>
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <Routes>
@@ -29,7 +27,6 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </div>
-    </AuthProvider>
   );
 }
 
