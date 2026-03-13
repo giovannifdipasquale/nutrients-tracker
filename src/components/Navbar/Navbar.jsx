@@ -14,8 +14,8 @@ const Navbar = () => {
 
     return (
         <div className="sticky top-0 z-50 bg-white shadow-md w-full">
-            <div className="w-full p-4 flex justify-between items-center">
-                <div className="flex gap-4 items-center">
+            <div className="relative w-full p-4 flex justify-between items-center">
+                <div className="flex gap-4 items-center z-10">
                     {user ? (
                         <>
                             <Link to="/dashboard" className="bg-emerald-600 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-emerald-700 transition">
@@ -40,10 +40,21 @@ const Navbar = () => {
                         </>
                     )}
                 </div>
-                <div className="flex gap-4 items-center">
-                    <Summary />
+
+                {!user && (
+                    <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="bg-indigo-50 border border-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 shadow-sm">
+                            <i className="bi bi-info-circle-fill"></i>
+                            <span>Sign up or log in to start saving your foods!</span>
+                        </div>
+                    </div>
+                )}
+
+                <div className="flex gap-4 items-center z-10">
+                    {user && <Summary />}
                     <Link to="/" className="text-slate-600 hover:text-slate-900 px-3 py-2 font-medium flex items-center gap-2">
-                        <i className="bi bi-house"></i>
+                        <i class="bi bi-house-door-fill"></i>
+
                         <span>Home</span>
                     </Link>
                     <ResetButton />
